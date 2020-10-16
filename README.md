@@ -13,5 +13,46 @@ Observer Pattern 은 객체의 상태 변화를 관찰하는 Observer 목록을 
 | 팩토리 함 | 함수 |
 |---|:---:|
 | `RxJava 2.x 추가 팩토리 함수` | fromArray(), fromIterable(), fromCallable(), fromFuture(), fromPublisher() | 
-| `기타 팩토리 함수` | interval(), range(), timer(), defer() 등 |
+| `기타 팩토리 함수` | interval(), range(), timer(), defer()  |
+
+1. Observer 방식<br/>
+Observer 인터페이스를 구현한 객체를 subscribe 해서 소비자를 추가한다.
+```kotlin
+ val observer = object : Observer<Int> {
+        override fun onComplete() {
+            println("onComplete()")
+        }
+
+        override fun onSubscribe(d: Disposable) {
+            println("onSubscribe()")
+        }
+
+        override fun onNext(t: Int) {
+            println("onNext() $t")
+        }
+
+        override fun onError(e: Throwable) {
+            println("onError()")
+        }
+    }
+
+    Observable
+        .just(2, 4, 6, 8)
+        .map { it / 2 }
+        .subscribe(observer)
+```
+결과
+```kotlin
+onSubscribe()
+onNext() 1
+onNext() 2
+onNext() 3
+onNext() 4
+onComplete()
+```
+- just() 함수
+데이터를 발행하는 가장 쉬운 방법은 기존의 자료구조를 사용하는 것이다. **just()** 함수는 인자로 넣은 데이터를 차례로 발행하려고 *Observable 을 생성*한다.<br/>
+한 개의 값을 넣을 수도 있고 인자로 여러 개의 값(최대 10개)을 넣을 수도 있다. 단, *타입은 모두 같아야 한다.*<br/>
+ 
+
 
