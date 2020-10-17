@@ -50,9 +50,41 @@ onNext() 3
 onNext() 4
 onComplete()
 ```
-- just() 함수
+- **just() 함수**<br/>
 데이터를 발행하는 가장 쉬운 방법은 기존의 자료구조를 사용하는 것이다. **just()** 함수는 인자로 넣은 데이터를 차례로 발행하려고 *Observable 을 생성*한다.<br/>
 한 개의 값을 넣을 수도 있고 인자로 여러 개의 값(최대 10개)을 넣을 수도 있다. 단, *타입은 모두 같아야 한다.*<br/>
+
+- **subscribe() 함수**<br/>
+RxJava 는 내가 동작시키기 원하는 것을 사전에 정의해둔 다음 실제 그것이 실행되는 시점을 조절할 수 있다. 이때 사용하는 것이 subscribe() 함수이다.<br/>
+Observable 은 just() 등의 팩토리 함수로 데이터 흐름을 정의한 후 subscribe() 함수를 호출해야 실제로 데이터를 발행한다.
+
+- **create() 함수**<br/>
+just() 함수는 데이터를 인자로 넣으면 자동으로 알림 이벤트가 발생하지만 create() 함수는 onNext, onComplete, onError 같은 알림을 개발자가 직접 호출해야 한다.<br/>
+그래서 create()는 라이브러리가 무엇인가 해준다기보다 개발자가 무언가를 직접 하는 느낌이 강한 함수이다.<br/>
+구독자에게 데이터를 발행하려면 onNext() 함수를 호출해야 하며 모든 데이터를 발행한 후에는 반드시 onComplete() 함수를 호출해야한다.<br/>
+```kotlin
+    Observable.create<Int> {emitter ->
+        emitter.onNext(100)
+        emitter.onNext(200)
+        emitter.onNext(300)
+        emitter.onNext(400)
+        emitter.onComplete()
+    }.subscribe(::println)
+```
+결과
+```kotlin
+100
+200
+300
+400
+```
+
+- **fromArray() 함수**<br/>
+- **fromIterable() 함수**<br/>
+- **fromCallable() 함수**<br/>
+- **fromFuture() 함수**<br/>
+- **fromPublisher() 함수**<br/>
+
  
 
 

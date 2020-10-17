@@ -31,4 +31,12 @@ fun main() {
         .map { it / 2 }
         .subscribe(observer)
 
+    Observable.create<Int> {emitter ->
+        emitter.onNext(100)
+        emitter.onNext(200)
+        emitter.onNext(300)
+        emitter.onNext(400)
+        emitter.onComplete()
+    }.subscribe(::println)
+
 }
