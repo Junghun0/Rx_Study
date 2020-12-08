@@ -38,5 +38,4 @@ fun main() {
         emitter.onNext(400)
         emitter.onComplete()
     }.subscribe(::println)
-
 }
