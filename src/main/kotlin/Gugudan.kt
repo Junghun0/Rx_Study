@@ -13,9 +13,11 @@ fun main() {
         println("$dan * $row = ${dan*row}")
     }
 
+    println()
+
     //2. for 문의 Observable 변환
     val source : Observable<Int> = range(1, 9)
     source.subscribe { row ->
-        print("$dan * $row = ${dan*row}")
+        println("$dan * $row = ${dan*row}")
     }
 }
