@@ -78,6 +78,31 @@ fun main() {
 //                }
 //            })
 //    runBlocking { delay(10000) }
+}
+
+fun BackPressureSample() {
+    val observable = Observable.range(1,20)
+
+    val observer = object : Observer<Int> {
+        override fun onComplete() {
+            println("onComplete()")
+        }
+
+        override fun onSubscribe(d: Disposable) {
+            println("onSubscribe()")
+        }
+
+        override fun onNext(t: Int) {
+            println("onNext() $t")
+        }
+
+        override fun onError(e: Throwable) {
+            println("onError()")
+        }
+    }
+
+    observable.subscribe(observer)
+
 
 
 
